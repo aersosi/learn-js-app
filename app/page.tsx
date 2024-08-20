@@ -1,24 +1,24 @@
 import AddTask from "@/app/components/AddTask";
 import TodoList from "@/app/components/TodoList";
-import {getAllTodos} from "@/api";
-export const runtime = "edge";
+import { getAllTodos } from "@/api";
+import ThemeSwitch from "@/app/components/ThemeSwitch";
 
 export default async function Home() {
-    const tasks = await getAllTodos();
+  const tasks = await getAllTodos();
 
-    return (
-        <>
-            <header className='container text-center py-8'>
-                <h1 className='text-3xl font-bold'>Next TS Starter</h1>
-            </header>
+  return (
+    <>
+      <header className="container flex justify-between gap-4 py-8">
+        <h1 className="text-2xl font-bold">Next TS Starter</h1>
+        <ThemeSwitch />
+      </header>
 
-            <main className='container'>
-                <AddTask/>
-                <TodoList tasks={tasks}/>
-            </main>
+      <main className="container">
+        <AddTask />
+        <TodoList tasks={tasks} />
+      </main>
 
-
-            <footer></footer>
-        </>
-    );
+      <footer></footer>
+    </>
+  );
 }

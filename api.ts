@@ -1,37 +1,41 @@
-import {ITask} from "@/types/tasks";
+import { ITask } from "@/types/tasks";
 
-const baseUrl = 'http://localhost:3001'
+const baseUrl = "http://localhost:3001";
 
 export const getAllTodos = async (): Promise<ITask[]> => {
-    const res = await fetch(`${baseUrl}/tasks`, { cache: 'no-store' });
-    const todos = await res.json();
-    return todos;
-}
+  const res = await fetch(`${baseUrl}/tasks`, { cache: "no-store" });
+  // Todo
+  return await res.json();
+};
 
-export const addTodo = async (todo: Omit<ITask, 'id'>): Promise<ITask> => {
-    try {
-        console.log('Sending request to:', `${baseUrl}/tasks`);
-        console.log('Request body:', JSON.stringify(todo));
+export const addTodo = async (todo: ITask): Promise<ITask> => {
+  const res = await fetch(`${baseUrl}/tasks`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(todo),
+  });
 
-        const res = await fetch(`${baseUrl}/tasks`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(todo)
-        });
+  const newTodo = await res.json();
+  return newTodo;
+};
 
-        if (!res.ok) {
-            const errorBody = await res.text();
-            console.error('Error response:', errorBody);
-            throw new Error(`HTTP error! status: ${res.status}, body: ${errorBody}`);
-        }
+export const editTodo = async (todo: ITask): Promise<ITask> => {
+  const res = await fetch(`${baseUrl}/tasks/${todo.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(todo),
+  });
 
-        const newTodo = await res.json();
-        console.log('Response:', newTodo);
-        return newTodo;
-    } catch (error) {
-        console.error("Failed to add todo:", error);
-        throw error;
-    }
-}
+  // updatedTodo
+  return await res.json();
+};
+
+export const deleteTodo = async (id: String): Promise<void> => {
+  await fetch(`${baseUrl}/tasks/${id}`, {
+    method: "DELETE",
+  });
+};

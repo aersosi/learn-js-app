@@ -9,7 +9,7 @@ interface ITodoListProps {
 const TodoList: React.FC<ITodoListProps> = ({tasks}) => {
 
     return (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto my-12">
             <table className="table">
                 <thead>
                 <tr>

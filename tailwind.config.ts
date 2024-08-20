@@ -6,9 +6,6 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  daisyui: {
-    themes: ["light", "dark", "cupcake"],
-  },
   theme: {
     container: {
       center: true,
@@ -23,5 +20,8 @@ const config: Config = {
     require('@tailwindcss/aspect-ratio'),
     require('daisyui'),
   ],
+  daisyui: {
+    themes: ["light", "dark", "cupcake"],
+  },
 };
 export default config;
