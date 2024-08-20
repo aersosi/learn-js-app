@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "json-serve": "json-server --watch data/todos.json --port 3001",
+    "json-serve": "json-server --watch data/topics.json --port 3001",
     "pages:build": "npx @cloudflare/next-on-pages"
   },
   "dependencies": {

@@ -1,10 +1,10 @@
 import AddTopic from "@/app/components/AddTopic";
 import TodoList from "@/app/components/TodoList";
-import { getAllTodos } from "@/api/api";
+import { getAllTopics } from "@/api/api";
 import ThemeSwitch from "@/app/components/ThemeSwitch";
 
 export default async function Home() {
-  const topics = await getAllTodos();
+  const topics = await getAllTopics();
 
   return (
     <>

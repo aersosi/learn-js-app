@@ -2,7 +2,7 @@ import { ITopics } from "@/types/topics";
 
 const baseUrl = "http://localhost:3001";
 
-export const getAllTodos = async (): Promise<ITopics[]> => {
+export const getAllTopics = async (): Promise<ITopics[]> => {
   const res = await fetch(`${baseUrl}/topics`, { cache: "no-store" });
   // Todo
   return await res.json();
