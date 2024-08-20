@@ -1,4 +1,4 @@
-export interface ICurriculum {
+export interface ITopics {
   id: string;
   text: string;
 }

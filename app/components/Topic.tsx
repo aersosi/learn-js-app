@@ -1,43 +1,43 @@
 "use client";
 
 import React, { FormEventHandler, useState } from "react";
-import { ICurriculum } from "@/types/curriculum";
+import { ITopics } from "@/types/topics";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import Modal from "@/app/components/Modal";
 import { deleteTodo, editTodo } from "@/api/api";
 import { useRouter } from "next/navigation";
 
-interface TaskProps {
-  task: ICurriculum;
+interface TopicProps {
+  topic: ITopics;
 }
 
-const Task: React.FC<TaskProps> = ({ task }) => {
+const Topic: React.FC<TopicProps> = ({ topic }) => {
   const router = useRouter();
 
   const [modalOpenEdit, setModalOpenEdit] = useState<boolean>(false);
   const [modalOpenDelete, setModalOpenDelete] = useState<boolean>(false);
-  const [taskToEdit, setTaskToEdit] = useState<string>(task.text);
+  const [topicToEdit, setTopicToEdit] = useState<string>(topic.text);
 
   const handleSubmitEditTodo: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     await editTodo({
-      id: task.id,
-      text: taskToEdit,
+      id: topic.id,
+      text: topicToEdit,
     });
     setModalOpenEdit(false);
     router.refresh();
   };
 
-  const handleDeleteTask = async (id: string) => {
+  const handleDeleteTopic = async (id: string) => {
     await deleteTodo(id);
     setModalOpenDelete(false);
     router.refresh();
   };
 
   return (
-    <tr key={task.id}>
+    <tr key={topic.id}>
       <th>1</th>
-      <td className="w-full">{task.text}</td>
+      <td className="w-full">{topic.text}</td>
       <td>
         <div className="flex gap-4">
           <FiEdit
@@ -59,10 +59,10 @@ const Task: React.FC<TaskProps> = ({ task }) => {
               onSubmit={handleSubmitEditTodo}
               className="flex flex-col gap-4"
             >
-              <h3 className="bold text-lg">Edit Task</h3>
+              <h3 className="bold text-lg">Edit Topic</h3>
               <textarea
-                value={taskToEdit}
-                onChange={(e) => setTaskToEdit(e.target.value)}
+                value={topicToEdit}
+                onChange={(e) => setTopicToEdit(e.target.value)}
                 placeholder="Bio"
                 className="modal-action textarea textarea-bordered textarea-md w-full"
               ></textarea>
@@ -77,7 +77,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
               <button
                 className="btn"
                 onClick={() => {
-                  handleDeleteTask(task.id);
+                  handleDeleteTopic(topic.id);
                 }}
               >
                 Delete
@@ -89,4 +89,4 @@ const Task: React.FC<TaskProps> = ({ task }) => {
     </tr>
   );
 };
-export default Task;
+export default Topic;

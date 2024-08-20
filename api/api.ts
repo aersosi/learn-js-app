@@ -1,15 +1,15 @@
-import { ICurriculum } from "@/types/curriculum";
+import { ITopics } from "@/types/topics";
 
 const baseUrl = "http://localhost:3001";
 
-export const getAllTodos = async (): Promise<ICurriculum[]> => {
-  const res = await fetch(`${baseUrl}/tasks`, { cache: "no-store" });
+export const getAllTodos = async (): Promise<ITopics[]> => {
+  const res = await fetch(`${baseUrl}/topics`, { cache: "no-store" });
   // Todo
   return await res.json();
 };
 
-export const addTodo = async (todo: ICurriculum): Promise<ICurriculum> => {
-  const res = await fetch(`${baseUrl}/tasks`, {
+export const addTodo = async (todo: ITopics): Promise<ITopics> => {
+  const res = await fetch(`${baseUrl}/topics`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,8 +21,8 @@ export const addTodo = async (todo: ICurriculum): Promise<ICurriculum> => {
   return await res.json();
 };
 
-export const editTodo = async (todo: ICurriculum): Promise<ICurriculum> => {
-  const res = await fetch(`${baseUrl}/tasks/${todo.id}`, {
+export const editTodo = async (todo: ITopics): Promise<ITopics> => {
+  const res = await fetch(`${baseUrl}/topics/${todo.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -35,7 +35,7 @@ export const editTodo = async (todo: ICurriculum): Promise<ICurriculum> => {
 };
 
 export const deleteTodo = async (id: String): Promise<void> => {
-  await fetch(`${baseUrl}/tasks/${id}`, {
+  await fetch(`${baseUrl}/topics/${id}`, {
     method: "DELETE",
   });
 };

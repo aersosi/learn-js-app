@@ -7,19 +7,19 @@ import { addTodo } from "@/api/api";
 import { useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 
-const AddTask = () => {
+const AddTopic = () => {
   const router = useRouter();
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [newTaskValue, setNewTaskValue] = useState<string>("");
+  const [newTopicValue, setNewTopicValue] = useState<string>("");
 
   const handleSubmitNewTodo: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     await addTodo({
       id: uuidv4(),
-      text: newTaskValue,
+      text: newTopicValue,
     });
-    setNewTaskValue("");
+    setNewTopicValue("");
     setModalOpen(false);
     router.refresh();
   };
@@ -30,7 +30,7 @@ const AddTask = () => {
         onClick={() => setModalOpen(true)}
         className="btn btn-primary w-full"
       >
-        Add new Task
+        Add new Topic
         <FiPlus size={18} />
       </button>
       <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
@@ -39,10 +39,10 @@ const AddTask = () => {
           onSubmit={handleSubmitNewTodo}
           className="flex flex-col gap-4"
         >
-          <h3 className="bold text-lg">Add new Task</h3>
+          <h3 className="bold text-lg">Add new Topic</h3>
           <textarea
-            value={newTaskValue}
-            onChange={(e) => setNewTaskValue(e.target.value)}
+            value={newTopicValue}
+            onChange={(e) => setNewTopicValue(e.target.value)}
             placeholder="Bio"
             className="modal-action textarea textarea-bordered textarea-md w-full"
           ></textarea>
@@ -54,4 +54,4 @@ const AddTask = () => {
     </div>
   );
 };
-export default AddTask;
+export default AddTopic;

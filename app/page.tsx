@@ -1,10 +1,10 @@
-import AddTask from "@/app/components/AddTask";
+import AddTopic from "@/app/components/AddTopic";
 import TodoList from "@/app/components/TodoList";
 import { getAllTodos } from "@/api/api";
 import ThemeSwitch from "@/app/components/ThemeSwitch";
 
 export default async function Home() {
-  const tasks = await getAllTodos();
+  const topics = await getAllTodos();
 
   return (
     <>
@@ -14,8 +14,8 @@ export default async function Home() {
       </header>
 
       <main className="container">
-        <AddTask />
-        <TodoList tasks={tasks} />
+        <AddTopic />
+        <TodoList topics={topics} />
       </main>
 
       <footer></footer>

@@ -1,25 +1,25 @@
-import { ICurriculum } from "@/types/curriculum";
+import { ITopics } from "@/types/topics";
 import React from "react";
-import Task from "@/app/components/Task";
+import Topic from "@/app/components/Topic";
 
 interface ITodoListProps {
-  tasks: ICurriculum[];
+  topics: ITopics[];
 }
 
-const TodoList: React.FC<ITodoListProps> = ({ tasks }) => {
+const TodoList: React.FC<ITodoListProps> = ({ topics }) => {
   return (
     <div className="my-12 overflow-x-auto">
       <table className="table">
         <thead>
           <tr>
             <th></th>
-            <th>Task</th>
+            <th>Topic</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {tasks.map((task) => (
-            <Task key={task.id} task={task} />
+          {topics.map((topic) => (
+            <Topic key={topic.id} topic={topic} />
           ))}
         </tbody>
       </table>
