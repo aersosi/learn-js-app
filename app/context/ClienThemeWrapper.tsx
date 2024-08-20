@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { ThemeContext } from "@/app/context/ThemeContext";
 
 export default function ClientThemeWrapper({
