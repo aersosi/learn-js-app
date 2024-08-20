@@ -1,14 +1,14 @@
-import { ITask } from "@/types/tasks";
+import { ICurriculum } from "@/types/curriculum";
 
 const baseUrl = "http://localhost:3001";
 
-export const getAllTodos = async (): Promise<ITask[]> => {
+export const getAllTodos = async (): Promise<ICurriculum[]> => {
   const res = await fetch(`${baseUrl}/tasks`, { cache: "no-store" });
   // Todo
   return await res.json();
 };
 
-export const addTodo = async (todo: ITask): Promise<ITask> => {
+export const addTodo = async (todo: ICurriculum): Promise<ICurriculum> => {
   const res = await fetch(`${baseUrl}/tasks`, {
     method: "POST",
     headers: {
@@ -21,7 +21,7 @@ export const addTodo = async (todo: ITask): Promise<ITask> => {
   return await res.json();
 };
 
-export const editTodo = async (todo: ITask): Promise<ITask> => {
+export const editTodo = async (todo: ICurriculum): Promise<ICurriculum> => {
   const res = await fetch(`${baseUrl}/tasks/${todo.id}`, {
     method: "PUT",
     headers: {

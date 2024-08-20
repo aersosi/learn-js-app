@@ -1,6 +1,6 @@
 import AddTask from "@/app/components/AddTask";
 import TodoList from "@/app/components/TodoList";
-import { getAllTodos } from "@/api";
+import { getAllTodos } from "@/api/api";
 import ThemeSwitch from "@/app/components/ThemeSwitch";
 
 export default async function Home() {

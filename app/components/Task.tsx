@@ -1,14 +1,14 @@
 "use client";
 
 import React, { FormEventHandler, useState } from "react";
-import { ITask } from "@/types/tasks";
+import { ICurriculum } from "@/types/curriculum";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import Modal from "@/app/components/Modal";
-import { deleteTodo, editTodo } from "@/api";
+import { deleteTodo, editTodo } from "@/api/api";
 import { useRouter } from "next/navigation";
 
 interface TaskProps {
-  task: ITask;
+  task: ICurriculum;
 }
 
 const Task: React.FC<TaskProps> = ({ task }) => {
