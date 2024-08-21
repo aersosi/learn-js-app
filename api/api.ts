@@ -22,11 +22,11 @@ export const getAllTopics = async (): Promise<ICategory> => {
       cache: "no-store",
     });
     if (!res.ok) {
-      console.log(`Failed to fetch topics: ${res.status} ${res.statusText}`);
+      console.error(`Failed to fetch topics: ${res.status} ${res.statusText}`);
     }
     const data = await res.json();
     if (!data.record?.curriculum) {
-      console.log("Invalid data structure received");
+      console.error("Invalid data structure received");
     }
     return data.record.curriculum as ICategory;
   } catch (error) {
@@ -43,14 +43,14 @@ export const editAnswer = async (
   try {
     const currentData = await getAllTopics();
     if (!currentData[category]?.[subcategory]) {
-      console.log("Category or subcategory not found");
+      console.error("Category or subcategory not found");
     }
     const topicIndex = currentData[category][subcategory].findIndex(
       (t: ITopic) => t.id === topic.id
     );
 
     if (topicIndex === -1) {
-      console.log("Topic not found");
+      console.error("Topic not found");
     }
 
     currentData[category][subcategory][topicIndex] = topic;
@@ -62,7 +62,7 @@ export const editAnswer = async (
     });
 
     if (!res.ok) {
-      console.log(`Failed to update topic: ${res.status} ${res.statusText}`);
+      console.error(`Failed to update topic: ${res.status} ${res.statusText}`);
     }
 
     await res.json();
@@ -81,14 +81,14 @@ export const deleteAnswer = async (
   try {
     const currentData = await getAllTopics();
     if (!currentData[category]?.[subcategory]) {
-      console.log("Category or subcategory not found");
+      console.error("Category or subcategory not found");
     }
     const topicIndex = currentData[category][subcategory].findIndex(
       (t: ITopic) => t.id === id
     );
 
     if (topicIndex === -1) {
-      console.log("Topic not found");
+      console.error("Topic not found");
     }
 
     currentData[category][subcategory][topicIndex].answer = "";
@@ -100,7 +100,7 @@ export const deleteAnswer = async (
     });
 
     if (!res.ok) {
-      console.log(`Failed to delete answer: ${res.status} ${res.statusText}`);
+      console.error(`Failed to delete answer: ${res.status} ${res.statusText}`);
     }
   } catch (error) {
     console.error("Error deleting answer:", error);
