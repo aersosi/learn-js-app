@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { FiChevronDown } from "react-icons/fi";
 
 interface Category {
   name: string;
@@ -16,63 +17,74 @@ interface CategoryNavProps {
 const NavDrawerContent: React.FC<CategoryNavProps> = ({ categories }) => {
   const pathname = usePathname();
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
-
-  const currentCategory = pathname.split("/")[2];
-  const currentSubcategory = pathname.split("/")[3];
+  const pathSegments = pathname.split("/").filter(Boolean);
+  const currentCategory = pathSegments[0];
+  const currentSubcategory = pathSegments[1]?.split("#")[1];
 
   useEffect(() => {
-    if (currentCategory) {
-      setExpandedCategory(currentCategory);
+    const pathSegments = pathname.split("/").filter(Boolean);
+    const category = pathSegments[0];
+    if (category) {
+      setExpandedCategory(category);
     }
-  }, [pathname, currentCategory]);
+  }, [pathname]);
 
   const toggleCategory = (categoryName: string) => {
-    setExpandedCategory(
-      expandedCategory === categoryName ? null : categoryName
+    setExpandedCategory((prevCategory) =>
+      prevCategory === categoryName ? null : categoryName
     );
   };
 
   return (
-    <>
-      <div className="p-4">
-        <Link href={`/`} className={`cursor-pointer`}>
-          Home
+    <div key={pathname}>
+      <div className="flex flex-col gap-4 p-4">
+        <Link href={`/`}>
+          <h1 className="text-2xl font-bold">Learn JavaScript</h1>
         </Link>
       </div>
       {categories.map((category) => (
         <div
-          className={`collapse bg-base-200 ${expandedCategory === category.name ? "collapse-open" : ""}`}
+          className={`collapse ${expandedCategory === category.name ? "collapse-open" : ""}`}
           key={category.name}
         >
-          <div className="collapse-title min-h-12 px-4 pb-0 peer-checked:bg-secondary peer-checked:text-secondary-content">
-            <div className="flex justify-between gap-4">
-              <Link
-                href={`/pages/${category.name}`}
-                className={`${category.name === currentCategory ? "font-bold" : ""} cursor-pointer`}
-              >
-                {category.name}
-              </Link>
-              <div
+          <div className="collapse-title min-h-fit !cursor-auto px-4 py-0 peer-checked:bg-secondary peer-checked:text-secondary-content">
+            <div className="flex items-center justify-between gap-4">
+              <ul className="menu menu-md p-0">
+                <li>
+                  <Link
+                    href={`/${category.name}`}
+                    className={`${category.name === currentCategory ? "font-bold" : ""} cursor-pointer`}
+                  >
+                    {" "}
+                    {category.name}
+                  </Link>
+                </li>
+              </ul>
+
+              <button
+                className="btn btn-ghost btn-sm"
                 onClick={(e) => {
                   e.preventDefault();
                   toggleCategory(category.name);
                 }}
-                className="cursor-pointer"
               >
-                {expandedCategory === category.name ? "Close" : "Open"}
-              </div>
+                <FiChevronDown
+                  size={18}
+                  className={`transform transition ${expandedCategory === category.name ? "rotate-180" : ""}`}
+                />
+              </button>
             </div>
           </div>
-          <div className="collapse-content peer-checked:bg-secondary peer-checked:text-secondary-content">
+          <div className="collapse-content pb-0 peer-checked:bg-secondary peer-checked:text-secondary-content">
             {category.subcategories.map((subcategory) => (
               <ul
                 key={`${category.name}-${subcategory}`}
-                className="menu menu-md p-0"
+                className="menu menu-md p-0 pl-4"
               >
                 <li>
                   <Link
-                    href={`/pages/${category.name}#${subcategory}`}
-                    className={`${subcategory === currentSubcategory ? "font-bold" : ""}`}
+                    href={`/${category.name}#${subcategory}`}
+                    className={`${category.name === currentCategory && subcategory === currentSubcategory ? "font-bold" : ""}`}
                   >
                     {subcategory}
                   </Link>
@@ -81,8 +93,8 @@ const NavDrawerContent: React.FC<CategoryNavProps> = ({ categories }) => {
             ))}
           </div>
         </div>
-      ))}
-    </>
+      ))}{" "}
+    </div>
   );
 };
 

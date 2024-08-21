@@ -36,7 +36,7 @@ const Topic: React.FC<ITopicProps> = ({
       setModalOpenEdit(false);
       router.refresh();
     } catch (error) {
-      console.error("Failed to edit topic:", error);
+      console.error("Failed to edit answer:", error);
     }
   };
 
@@ -65,7 +65,7 @@ const Topic: React.FC<ITopicProps> = ({
         <FiEdit
           onClick={() => setModalOpenEdit(true)}
           cursor="pointer"
-          className="text-primary"
+          className="text-green-500"
           size={18}
         />
         <FiTrash2
@@ -81,7 +81,7 @@ const Topic: React.FC<ITopicProps> = ({
             onSubmit={handleSubmitEditAnswer}
             className="flex flex-col gap-4"
           >
-            <h3 className="bold text-lg">Edit Topic</h3>
+            <h3 className="bold text-lg">Edit Answer</h3>
             <textarea
               value={topicToEdit}
               onChange={(e) => setTopicToEdit(e.target.value)}

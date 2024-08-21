@@ -5,15 +5,15 @@ import { FiLink2 } from "react-icons/fi";
 
 const TopicsList: React.FC<ITopicListProps> = ({ data }) => {
   return (
-    <div className="my-12 overflow-x-auto">
+    <div className="overflow-x-auto">
       {Object.entries(data).map(([category, subcategories]) => (
         <div key={category}>
           {Object.entries(subcategories).map(([subcategory, topicsList]) => (
-            <div className="mb-16" key={subcategory}>
-              <h3 className="mb-4 text-lg font-semibold" id={subcategory}>
+            <div className="mb-12 flex flex-col gap-4" key={subcategory}>
+              <h3 className="text-lg font-semibold" id={subcategory}>
                 <a
                   href={`#${subcategory}`}
-                  className="docs-anchor group"
+                  className="group"
                   tabIndex="-1"
                   aria-label={`Link to ${subcategory}`}
                 >

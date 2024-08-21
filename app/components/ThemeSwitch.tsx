@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useCallback } from "react";
+import React, { useContext, useEffect, useCallback } from "react";
 import { ThemeContext } from "@/app/context/ThemeContext";
 
 export default function ThemeSwitch() {
@@ -13,10 +13,13 @@ export default function ThemeSwitch() {
   }, [theme, changeTheme]);
 
   return (
-    <button className="swap swap-rotate" onClick={toggleTheme}>
+    <button
+      className="btn btn-circle btn-ghost swap swap-rotate"
+      onClick={toggleTheme}
+    >
       {/* sun icon */}
       <svg
-        className={`h-8 w-8 fill-current ${theme === "light" ? "swap-on" : "swap-off"}`}
+        className={`h-7 w-7 fill-current ${theme === "light" ? "swap-on" : "swap-off"}`}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
       >
@@ -25,7 +28,7 @@ export default function ThemeSwitch() {
 
       {/* moon icon */}
       <svg
-        className={`h-8 w-8 fill-current ${theme === "dark" ? "swap-on" : "swap-off"}`}
+        className={`h-7 w-7 fill-current ${theme === "dark" ? "swap-on" : "swap-off"}`}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
       >

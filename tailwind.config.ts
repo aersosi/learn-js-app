@@ -1,8 +1,8 @@
-import type {Config} from "tailwindcss";
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./(pages)/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
@@ -10,18 +10,15 @@ const config: Config = {
     container: {
       center: true,
       padding: {
-        DEFAULT: '1rem',
-        md: '1.5rem',
-        lg: '2rem'
-      }
-    }
+        DEFAULT: "1rem",
+        md: "1.5rem",
+        lg: "2rem",
+      },
+    },
   },
-  plugins: [
-    require('@tailwindcss/aspect-ratio'),
-    require('daisyui'),
-  ],
+  plugins: [require("@tailwindcss/aspect-ratio"), require("daisyui")],
   daisyui: {
-    themes: ["light", "dark", "cupcake"],
+    themes: ["light", "dark"],
   },
 };
 export default config;

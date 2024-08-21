@@ -15,18 +15,19 @@ export default async function CategoryPage({
     subcategories: Object.keys(subcategories),
   }));
   const data: ISubcategory = await getTopicsByCategory(params.category);
+  const pathname = `${params.category}`;
 
   return (
     <>
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="container drawer-content min-h-screen">
-          <Header params={params.category} />
+        <div className="drawer-content min-h-screen max-w-[80rem] px-4 lg:px-12">
+          <Header params={params.category} pathname={pathname} />
           <main>
             <TopicsList data={{ [params.category]: data }} />
           </main>
         </div>
-        <div className="drawer-side">
+        <div className="drawer-side z-20">
           <label
             htmlFor="my-drawer-2"
             aria-label="close sidebar"
