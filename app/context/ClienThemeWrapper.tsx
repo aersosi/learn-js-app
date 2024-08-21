@@ -10,9 +10,5 @@ export default function ClientThemeWrapper({
 }) {
   const { theme } = useContext(ThemeContext);
 
-  return (
-    <div className="h-screen" data-theme={theme}>
-      {children}
-    </div>
-  );
+  return <div data-theme={theme}>{children}</div>;
 }

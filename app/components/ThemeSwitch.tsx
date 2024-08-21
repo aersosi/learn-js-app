@@ -6,12 +6,9 @@ import { ThemeContext } from "@/app/context/ThemeContext";
 export default function ThemeSwitch() {
   const { theme, changeTheme } = useContext(ThemeContext);
 
-  useEffect(() => {
-    console.log("Theme changed to:", theme);
-  }, [theme]);
+  useEffect(() => {}, [theme]);
 
   const toggleTheme = useCallback(() => {
-    console.log("Toggling theme. Current theme:", theme);
     changeTheme(theme === "light" ? "dark" : "light");
   }, [theme, changeTheme]);
 

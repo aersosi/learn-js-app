@@ -1,20 +1,56 @@
 {
-  "topics": [
-    {
-      "id": "11111",
-      "text": "lorem ipsum dolorwertyui"
+  "curriculum": {
+    "Syntax": {
+      "Exceptions": [
+        {
+          "id": "1111",
+          "question": "question 1111",
+          "answer": "answer 1111"
+        },
+        {
+          "id": "2222",
+          "question": "question 2222",
+          "answer": "answer 2222"
+        }
+      ],
+      "Semi-colons": [
+        {
+          "id": "3333",
+          "question": "question 3333",
+          "answer": "answer 3333"
+        },
+        {
+          "id": "4444",
+          "question": "question 4444",
+          "answer": "answer 4444"
+        }
+      ]
     },
-    {
-      "id": "2222",
-      "text": "sit amet ex libris"
-    },
-    {
-      "id": "3",
-      "text": "Arthur ist cool"
-    },
-    {
-      "id": "596f7ece-fc78-4510-8bf9-cba5e7697b1d",
-      "text": "23erth"
+    "Variables": {
+      "nullish coalescing": [
+        {
+          "id": "5555",
+          "question": "question 5555",
+          "answer": "answer 5555"
+        },
+        {
+          "id": "6666",
+          "question": "question 6666",
+          "answer": "answer 6666"
+        }
+      ],
+      "Hoisting": [
+        {
+          "id": "7777",
+          "question": "question 7777",
+          "answer": "answer 7777"
+        },
+        {
+          "id": "8888",
+          "question": "question 8888",
+          "answer": "answer 8888"
+        }
+      ]
     }
-  ]
+  }
 }

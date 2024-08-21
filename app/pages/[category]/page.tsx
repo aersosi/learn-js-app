@@ -1,14 +1,20 @@
-import { getAllTopics } from "@/api/api";
+import { getAllTopics, getTopicsByCategory } from "@/api/api";
+import TopicsList from "@/app/components/TopicsList";
 import ThemeSwitch from "@/app/components/ThemeSwitch";
-import { ICategory } from "@/types/topics";
+import { ISubcategory, ICategory } from "@/types/topics";
 import NavContent from "@/app/components/NavContent";
 
-export default async function Home() {
-  const data: ICategory = await getAllTopics();
-  const categories = Object.entries(data).map(([name, subcategories]) => ({
+export default async function CategoryPage({
+  params,
+}: {
+  params: { category: string };
+}) {
+  const allData: ICategory = await getAllTopics();
+  const categories = Object.entries(allData).map(([name, subcategories]) => ({
     name,
     subcategories: Object.keys(subcategories),
   }));
+  const data: ISubcategory = await getTopicsByCategory(params.category);
 
   return (
     <>
@@ -22,18 +28,11 @@ export default async function Home() {
             >
               Open drawer
             </label>
-            <h1 className="text-2xl font-bold">Learn JavaScript App</h1>
+            <h1 className="text-2xl font-bold">{params.category}</h1>
             <ThemeSwitch />
           </header>
           <main>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
-              autem consectetur deserunt expedita facere nobis odit possimus
-              praesentium reiciendis vero! Ab corporis deleniti, dolorum error
-              est fuga incidunt ipsa ipsum iure labore laborum modi nesciunt,
-              odit omnis optio perferendis porro praesentium quas quia quos
-              reprehenderit sint sunt totam vero voluptas.
-            </p>
+            <TopicsList data={{ [params.category]: data }} />
           </main>
         </div>
         <div className="drawer-side">
