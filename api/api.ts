@@ -22,13 +22,16 @@ export const getAllTopics = async (): Promise<ICategory> => {
       cache: "no-store",
     });
     if (!res.ok) {
-      console.error("Failed to fetch topics");
+      console.log(`Failed to fetch topics: ${res.status} ${res.statusText}`);
     }
     const data = await res.json();
+    if (!data.record?.curriculum) {
+      console.log("Invalid data structure received");
+    }
     return data.record.curriculum as ICategory;
   } catch (error) {
     console.error("Error fetching topics:", error);
-    return;
+    return {} as ICategory; // Return an empty object that satisfies ICategory
   }
 };
 
@@ -37,12 +40,19 @@ export const editAnswer = async (
   category: string,
   subcategory: string
 ): Promise<ITopic> => {
-  const currentData = await getAllTopics();
-  const topicIndex = currentData[category][subcategory].findIndex(
-    (t: ITopic) => t.id === topic.id
-  );
+  try {
+    const currentData = await getAllTopics();
+    if (!currentData[category]?.[subcategory]) {
+      console.log("Category or subcategory not found");
+    }
+    const topicIndex = currentData[category][subcategory].findIndex(
+      (t: ITopic) => t.id === topic.id
+    );
 
-  if (topicIndex !== -1) {
+    if (topicIndex === -1) {
+      console.log("Topic not found");
+    }
+
     currentData[category][subcategory][topicIndex] = topic;
 
     const res = await fetch(baseUrl, {
@@ -51,10 +61,16 @@ export const editAnswer = async (
       body: JSON.stringify({ curriculum: currentData }),
     });
 
-    await res.json();
-  }
+    if (!res.ok) {
+      console.log(`Failed to update topic: ${res.status} ${res.statusText}`);
+    }
 
-  return topic;
+    await res.json();
+    return topic;
+  } catch (error) {
+    console.error("Error editing answer:", error);
+    throw error;
+  }
 };
 
 export const deleteAnswer = async (
@@ -62,18 +78,32 @@ export const deleteAnswer = async (
   category: string,
   subcategory: string
 ): Promise<void> => {
-  const currentData = await getAllTopics();
-  const topicIndex = currentData[category][subcategory].findIndex(
-    (t: ITopic) => t.id === id
-  );
+  try {
+    const currentData = await getAllTopics();
+    if (!currentData[category]?.[subcategory]) {
+      console.log("Category or subcategory not found");
+    }
+    const topicIndex = currentData[category][subcategory].findIndex(
+      (t: ITopic) => t.id === id
+    );
 
-  if (topicIndex !== -1) {
+    if (topicIndex === -1) {
+      console.log("Topic not found");
+    }
+
     currentData[category][subcategory][topicIndex].answer = "";
 
-    await fetch(baseUrl, {
+    const res = await fetch(baseUrl, {
       method: "PUT",
       headers,
       body: JSON.stringify({ curriculum: currentData }),
     });
+
+    if (!res.ok) {
+      console.log(`Failed to delete answer: ${res.status} ${res.statusText}`);
+    }
+  } catch (error) {
+    console.error("Error deleting answer:", error);
+    throw error;
   }
 };

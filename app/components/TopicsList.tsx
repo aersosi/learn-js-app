@@ -14,7 +14,7 @@ const TopicsList: React.FC<ITopicListProps> = ({ data }) => {
                 <a
                   href={`#${subcategory}`}
                   className="group"
-                  tabIndex="-1"
+                  tabIndex={-1}
                   aria-label={`Link to ${subcategory}`}
                 >
                   <span className="flex items-center gap-2">

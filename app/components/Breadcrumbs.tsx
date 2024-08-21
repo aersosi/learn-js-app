@@ -1,7 +1,12 @@
 import React from "react";
 import Link from "next/link";
 
-const generateBreadcrumbs = (pathname) => {
+interface Breadcrumb {
+  href: string;
+  label: string;
+}
+
+const generateBreadcrumbs = (pathname: string): Breadcrumb[] => {
   if (!pathname) return [];
   const paths = pathname.split("/").filter((path) => path);
   return paths.map((path, index) => {
@@ -10,7 +15,11 @@ const generateBreadcrumbs = (pathname) => {
   });
 };
 
-const Breadcrumbs = ({ pathname }) => {
+interface BreadcrumbsProps {
+  pathname: string;
+}
+
+const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ pathname }) => {
   const breadcrumbs = generateBreadcrumbs(pathname);
 
   return (

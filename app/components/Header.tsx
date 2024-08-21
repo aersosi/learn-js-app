@@ -3,7 +3,12 @@ import { FiMenu } from "react-icons/fi";
 import ThemeSwitch from "@/app/components/ThemeSwitch";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 
-const Header = ({ params, pathname = "" }) => {
+interface HeaderProps {
+  params: string | undefined;
+  pathname?: string;
+}
+
+const Header: React.FC<HeaderProps> = ({ params, pathname = "" }) => {
   return (
     <header className="sticky top-0 z-10 flex flex-col gap-4 bg-base-100 py-7">
       <div className="-mx-3 flex items-center justify-between gap-4 lg:ml-0">
@@ -32,4 +37,5 @@ const Header = ({ params, pathname = "" }) => {
     </header>
   );
 };
+
 export default Header;

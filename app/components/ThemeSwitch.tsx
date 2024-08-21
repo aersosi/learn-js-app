@@ -1,15 +1,15 @@
 "use client";
 
-import React, { useContext, useEffect, useCallback } from "react";
+import React, { useContext, useCallback } from "react";
 import { ThemeContext } from "@/app/context/ThemeContext";
 
 export default function ThemeSwitch() {
   const { theme, changeTheme } = useContext(ThemeContext);
 
-  useEffect(() => {}, [theme]);
-
   const toggleTheme = useCallback(() => {
-    changeTheme(theme === "light" ? "dark" : "light");
+    const newTheme = theme === "light" ? "dark" : "light";
+    console.log("Toggling theme. Current theme:", theme);
+    changeTheme(newTheme);
   }, [theme, changeTheme]);
 
   return (
