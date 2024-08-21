@@ -13,7 +13,7 @@ interface CategoryNavProps {
   categories: Category[];
 }
 
-const NavContent: React.FC<CategoryNavProps> = ({ categories }) => {
+const NavDrawerContent: React.FC<CategoryNavProps> = ({ categories }) => {
   const pathname = usePathname();
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
@@ -34,12 +34,17 @@ const NavContent: React.FC<CategoryNavProps> = ({ categories }) => {
 
   return (
     <>
+      <div className="p-4">
+        <Link href={`/`} className={`cursor-pointer`}>
+          Home
+        </Link>
+      </div>
       {categories.map((category) => (
         <div
           className={`collapse bg-base-200 ${expandedCategory === category.name ? "collapse-open" : ""}`}
           key={category.name}
         >
-          <div className="collapse-title peer-checked:bg-secondary peer-checked:text-secondary-content">
+          <div className="collapse-title min-h-12 px-4 pb-0 peer-checked:bg-secondary peer-checked:text-secondary-content">
             <div className="flex justify-between gap-4">
               <Link
                 href={`/pages/${category.name}`}
@@ -60,14 +65,19 @@ const NavContent: React.FC<CategoryNavProps> = ({ categories }) => {
           </div>
           <div className="collapse-content peer-checked:bg-secondary peer-checked:text-secondary-content">
             {category.subcategories.map((subcategory) => (
-              <div key={`${category.name}-${subcategory}`}>
-                <Link
-                  href={`/pages/${category.name}/${subcategory}`}
-                  className={`${subcategory === currentSubcategory ? "font-bold" : ""}`}
-                >
-                  {subcategory}
-                </Link>
-              </div>
+              <ul
+                key={`${category.name}-${subcategory}`}
+                className="menu menu-md p-0"
+              >
+                <li>
+                  <Link
+                    href={`/pages/${category.name}#${subcategory}`}
+                    className={`${subcategory === currentSubcategory ? "font-bold" : ""}`}
+                  >
+                    {subcategory}
+                  </Link>
+                </li>
+              </ul>
             ))}
           </div>
         </div>
@@ -76,4 +86,4 @@ const NavContent: React.FC<CategoryNavProps> = ({ categories }) => {
   );
 };
 
-export default NavContent;
+export default NavDrawerContent;

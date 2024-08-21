@@ -1,7 +1,7 @@
 import { getAllTopics } from "@/api/api";
-import ThemeSwitch from "@/app/components/ThemeSwitch";
 import { ICategory } from "@/types/topics";
-import NavContent from "@/app/components/NavContent";
+import NavDrawerContent from "@/app/components/NavDrawerContent";
+import Header from "@/app/components/Header";
 
 export default async function Home() {
   const data: ICategory = await getAllTopics();
@@ -15,16 +15,8 @@ export default async function Home() {
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="container drawer-content min-h-screen">
-          <header className="flex justify-between gap-4 py-8">
-            <label
-              htmlFor="my-drawer-2"
-              className="btn btn-primary drawer-button lg:hidden"
-            >
-              Open drawer
-            </label>
-            <h1 className="text-2xl font-bold">Learn JavaScript App</h1>
-            <ThemeSwitch />
-          </header>
+          <Header />
+
           <main>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
@@ -43,7 +35,7 @@ export default async function Home() {
             className="drawer-overlay"
           ></label>
           <div className="menu min-h-full w-80 bg-base-200 p-4 text-base-content">
-            <NavContent categories={categories} />
+            <NavDrawerContent categories={categories} />
           </div>
         </div>
       </div>
