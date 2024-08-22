@@ -93,7 +93,7 @@ const NavDrawerContent: React.FC<CategoryNavProps> = ({ categories }) => {
             ))}
           </div>
         </div>
-      ))}{" "}
+      ))}
     </div>
   );
 };

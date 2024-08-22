@@ -1,111 +1,170 @@
 "use client";
 
-import React, { FormEventHandler, useState } from "react";
+import React, { FormEventHandler, useState, useCallback } from "react";
 import { ITopicProps } from "@/types/topics";
-import { FiEdit, FiTrash2, FiCheck } from "react-icons/fi";
+import { FiEdit, FiTrash2, FiCheck, FiRotateCcw } from "react-icons/fi";
 import Modal from "@/app/components/Modal";
-import { deleteAnswer, editAnswer } from "@/api/api";
+import { deleteAnswer, editAnswer } from "@/app/api/api";
 import { useRouter } from "next/navigation";
 
-const Topic: React.FC<ITopicProps> = ({
-  topic,
-  category,
-  subcategory,
-  index,
-}) => {
-  const router = useRouter();
+const Topic: React.FC<ITopicProps> = React.memo(
+  ({ topic, category, subcategory, index }) => {
+    const router = useRouter();
 
-  const [modalOpenEdit, setModalOpenEdit] = useState<boolean>(false);
-  const [modalOpenDelete, setModalOpenDelete] = useState<boolean>(false);
-  const [topicToEdit, setTopicToEdit] = useState<string>(topic.answer);
+    const [editState, setEditState] = useState({
+      isEditing: false,
+      tempEdit: topic.answer,
+      isCleared: false,
+      currentAnswer: topic.answer,
+    });
 
-  const handleSubmitEditAnswer: FormEventHandler<HTMLFormElement> = async (
-    e
-  ) => {
-    e.preventDefault();
-    try {
-      await editAnswer(
-        {
-          id: topic.id,
-          question: topic.question,
-          answer: topicToEdit,
-        },
-        category,
-        subcategory
-      );
-      setModalOpenEdit(false);
-      router.refresh();
-    } catch (error) {
-      console.error("Failed to edit answer:", error);
-    }
-  };
+    const handleSubmitEditAnswer: FormEventHandler<HTMLFormElement> = async (
+      e
+    ) => {
+      e.preventDefault();
+      try {
+        if (editState.tempEdit === "") {
+          await deleteAnswer(topic.id, category, subcategory);
+        } else {
+          await editAnswer(
+            {
+              id: topic.id,
+              question: topic.question,
+              answer: editState.tempEdit,
+            },
+            category,
+            subcategory
+          );
+        }
+        setEditState((prev) => ({
+          ...prev,
+          isEditing: false,
+          currentAnswer: editState.tempEdit,
+          isCleared: false,
+        }));
+        router.refresh();
+      } catch (error) {
+        console.error("Failed to update answer:", error);
+      }
+    };
 
-  const handleDeleteAnswer = async () => {
-    try {
-      await deleteAnswer(topic.id, category, subcategory);
-      setModalOpenDelete(false);
-      setTopicToEdit("");
-      router.refresh();
-    } catch (error) {
-      console.error("Failed to delete topic:", error);
-    }
-  };
+    const handleEditClick = useCallback(() => {
+      setEditState((prev) => ({
+        ...prev,
+        isEditing: true,
+        tempEdit: prev.currentAnswer,
+        isCleared: false,
+      }));
+    }, []);
 
-  return (
-    <div key={topic.id} className="mb-8 flex justify-between gap-4">
-      <div className="flex flex-col gap-4">
-        <span>{`${index + 1}. ${topic.question}`}</span>{" "}
-        {/* Display the question number */}
-        <span className="flex items-center gap-4 opacity-50">
-          <FiCheck size={24} className="text-green-500" />
-          {topic.answer}
-        </span>
-      </div>
-      <div className="flex gap-4">
-        <FiEdit
-          onClick={() => setModalOpenEdit(true)}
-          cursor="pointer"
-          className="text-green-500"
-          size={18}
-        />
-        <FiTrash2
-          onClick={() => setModalOpenDelete(true)}
-          cursor="pointer"
-          className="text-red-500"
-          size={18}
-        />
+    const handleCancelEdit = useCallback(() => {
+      setEditState((prev) => ({
+        ...prev,
+        isEditing: false,
+        tempEdit: prev.currentAnswer,
+        isCleared: false,
+      }));
+    }, []);
 
-        <Modal modalOpen={modalOpenEdit} setModalOpen={setModalOpenEdit}>
-          <form
-            id="TextArea"
-            onSubmit={handleSubmitEditAnswer}
-            className="flex flex-col gap-4"
+    return (
+      <div key={topic.id} className="flex justify-between gap-4">
+        <div className="flex flex-col gap-4">
+          <span>{`${index + 1}. ${topic.question}`}</span>
+          <span className="flex items-center gap-4 opacity-50">
+            <FiCheck size={24} className="text-green-500" />
+            {editState.currentAnswer}
+          </span>
+        </div>
+        <div className="flex gap-4">
+          <FiEdit
+            onClick={handleEditClick}
+            cursor="pointer"
+            className="text-green-500"
+            size={18}
+          />
+
+          <Modal
+            modalOpen={editState.isEditing}
+            setModalOpen={(isOpen) =>
+              setEditState((prev) => ({ ...prev, isEditing: isOpen }))
+            }
           >
-            <h3 className="bold text-lg">Edit Answer</h3>
-            <textarea
-              value={topicToEdit}
-              onChange={(e) => setTopicToEdit(e.target.value)}
-              placeholder="Bio"
-              className="modal-action textarea textarea-bordered textarea-md w-full"
-            ></textarea>
-            <button className="btn" type="submit">
-              Submit
-            </button>
-          </form>
-        </Modal>
-        <Modal modalOpen={modalOpenDelete} setModalOpen={setModalOpenDelete}>
-          <h3 className="bold text-lg">
-            Are you sure you want to delete your answer?
-          </h3>
-          <div className="modal-action">
-            <button className="btn" onClick={handleDeleteAnswer}>
-              Delete
-            </button>
-          </div>
-        </Modal>
+            <form
+              id="TextArea"
+              onSubmit={handleSubmitEditAnswer}
+              className="flex flex-col gap-4"
+            >
+              <h3 className="bold text-lg">Edit Answer</h3>
+              <p>{topic.question}</p>
+              <textarea
+                rows={8}
+                value={editState.tempEdit}
+                onChange={(e) =>
+                  setEditState((prev) => ({
+                    ...prev,
+                    tempEdit: e.target.value,
+                  }))
+                }
+                placeholder="Please write your answer"
+                className="modal-action textarea textarea-bordered textarea-md mb-4 mt-2 w-full"
+              ></textarea>
+              <div className="flex items-center justify-between gap-4">
+                {!editState.isCleared ? (
+                  <button
+                    type="button"
+                    data-tip="Delete answer"
+                    className="btn btn-circle btn-ghost tooltip tooltip-right relative text-red-500"
+                    onClick={() =>
+                      setEditState((prev) => ({
+                        ...prev,
+                        tempEdit: "",
+                        isCleared: true,
+                      }))
+                    }
+                  >
+                    <FiTrash2 size={18} className="absolute inset-[13px]" />
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    data-tip="Undo delete answer"
+                    className="btn btn-circle btn-ghost btn-md tooltip tooltip-right"
+                    onClick={() =>
+                      setEditState((prev) => ({
+                        ...prev,
+                        tempEdit: prev.currentAnswer,
+                        isCleared: false,
+                      }))
+                    }
+                  >
+                    <FiRotateCcw size={18} className="absolute inset-[14px]" />
+                  </button>
+                )}
+
+                <span className="flex gap-4">
+                  <button
+                    type="button"
+                    className="btn btn-ghost btn-sm"
+                    onClick={handleCancelEdit}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="btn btn-ghost btn-sm text-primary"
+                  >
+                    Save
+                  </button>
+                </span>
+              </div>
+            </form>
+          </Modal>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
+
+Topic.displayName = "Topic";
 
 export default Topic;

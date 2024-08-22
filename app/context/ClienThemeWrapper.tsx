@@ -10,5 +10,9 @@ export default function ClientThemeWrapper({
 }) {
   const { theme } = useContext(ThemeContext);
 
-  return <div data-theme={theme}>{children}</div>;
+  return (
+    <div data-theme={theme} className="bg-base-200">
+      {children}
+    </div>
+  );
 }

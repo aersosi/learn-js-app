@@ -5,11 +5,11 @@ import { FiLink2 } from "react-icons/fi";
 
 const TopicsList: React.FC<ITopicListProps> = ({ data }) => {
   return (
-    <div className="overflow-x-auto">
+    <>
       {Object.entries(data).map(([category, subcategories]) => (
-        <div key={category}>
+        <div key={category} className="flex flex-col gap-16">
           {Object.entries(subcategories).map(([subcategory, topicsList]) => (
-            <div className="mb-12 flex flex-col gap-4" key={subcategory}>
+            <div className="flex flex-col gap-4" key={subcategory}>
               <h3 className="text-lg font-semibold" id={subcategory}>
                 <a
                   href={`#${subcategory}`}
@@ -39,7 +39,7 @@ const TopicsList: React.FC<ITopicListProps> = ({ data }) => {
           ))}
         </div>
       ))}
-    </div>
+    </>
   );
 };
 

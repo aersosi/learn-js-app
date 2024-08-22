@@ -3,52 +3,180 @@
     "Syntax": {
       "Exceptions": [
         {
-          "id": "1111",
+          "id": "tata1a2b3c4d",
           "question": "question 1111",
-          "answer": "answer 1111"
+          "answer": "answer 1111 456789"
         },
         {
-          "id": "2222",
+          "id": "tata5e6f7g8h",
           "question": "question 2222",
           "answer": "answer 2222"
-        }
-      ],
-      "Semi-colons": [
+        },
         {
-          "id": "3333",
+          "id": "tata9i0j1k2",
           "question": "question 3333",
           "answer": "answer 3333"
         },
         {
-          "id": "4444",
+          "id": "tata3l4m5n6",
           "question": "question 4444",
           "answer": "answer 4444"
+        }
+      ],
+      "Semi-colons": [
+        {
+          "id": "tata7o8p9q1",
+          "question": "question 5555",
+          "answer": "answer 5555"
+        },
+        {
+          "id": "tata2r3s4t5",
+          "question": "question 6666",
+          "answer": "answer 6666"
+        },
+        {
+          "id": "tata6u7v8w9",
+          "question": "question 7777",
+          "answer": "answer 7777"
+        },
+        {
+          "id": "tata0x1y2z3",
+          "question": "question 8888",
+          "answer": "answer 8888"
+        }
+      ],
+      "For Loops": [
+        {
+          "id": "tata4r5s6t7",
+          "question": "question 2526",
+          "answer": "answer 2526"
+        },
+        {
+          "id": "tata8u9v0w1",
+          "question": "question 2627",
+          "answer": "answer 2627"
+        },
+        {
+          "id": "tata2x3y4z5",
+          "question": "question 2728",
+          "answer": "answer 2728"
+        },
+        {
+          "id": "tata6a7b8c9",
+          "question": "question 2829",
+          "answer": "answer 2829"
+        }
+      ],
+      "While Loops": [
+        {
+          "id": "tata1d2e3f4",
+          "question": "question 2930",
+          "answer": "answer 2930"
+        },
+        {
+          "id": "tata5g6h7i8",
+          "question": "question 3031",
+          "answer": "answer 3031"
+        },
+        {
+          "id": "tata9j0k1l2",
+          "question": "question 3132",
+          "answer": "answer 3132"
+        },
+        {
+          "id": "tata3m4n5o6",
+          "question": "question 3233",
+          "answer": "answer 3233"
+        }
+      ],
+      "Arrow Functions": [
+        {
+          "id": "tata4t5u6v7",
+          "question": "question 1718",
+          "answer": "answer 1718"
+        },
+        {
+          "id": "tata8w9x0y1",
+          "question": "question 1819",
+          "answer": "answer 1819"
+        },
+        {
+          "id": "tata2z3a4b5",
+          "question": "question 1920",
+          "answer": "answer 1920"
+        },
+        {
+          "id": "tata6c7d8e9",
+          "question": "question 2021",
+          "answer": "answer 2021"
+        }
+      ],
+      "Closures": [
+        {
+          "id": "tata1f2g3h4",
+          "question": "question 2122",
+          "answer": "answer 2122"
+        },
+        {
+          "id": "tata5i6j7k8",
+          "question": "question 2223",
+          "answer": "answer 2223"
+        },
+        {
+          "id": "tata9l0m1n2",
+          "question": "question 2324",
+          "answer": "answer 2324"
+        },
+        {
+          "id": "tata3o4p5q6",
+          "question": "question 2425",
+          "answer": "answer 2425"
         }
       ]
     },
     "Variables": {
       "nullish coalescing": [
         {
-          "id": "5555",
-          "question": "question 5555",
-          "answer": "answer 5555"
+          "id": "tata4u5v6w7x",
+          "question": "question 9999",
+          "answer": "answer 9999"
         },
         {
-          "id": "6666",
-          "question": "question 6666",
-          "answer": "answer 6666"
+          "id": "tata8y9z0a1",
+          "question": "question 1010",
+          "answer": "answer 1010"
+        },
+        {
+          "id": "tata2b3c4d5",
+          "question": "question 1112",
+          "answer": "answer 1112"
+        },
+        {
+          "id": "tata6e7f8g9",
+          "question": "question 1213",
+          "answer": "answer 1213"
         }
       ],
       "Hoisting": [
         {
-          "id": "7777",
-          "question": "question 7777",
-          "answer": "answer 7777"
+          "id": "tata1h2i3j4",
+          "question": "question 1314",
+          "answer": "answer 1314"
         },
         {
-          "id": "8888",
-          "question": "question 8888",
-          "answer": "answer 8888"
+          "id": "tata5k6l7m8",
+          "question": "question 1415",
+          "answer": "answer 1415"
+        },
+        {
+          "id": "tata9n0o1p2",
+          "question": "question 1516",
+          "answer": "answer 1516"
+        },
+        {
+          "id": "tata3q4r5s6",
+          "question": "question 1617",
+          "answer": "answer 1617"
         }
       ]
     }
