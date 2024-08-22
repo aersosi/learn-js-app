@@ -1,5 +1,7 @@
 import { ICategory } from "@/types/topics";
-import { getCachedTopics, setCachedTopics } from "../cache/cache";
+import { getCachedTopics, setCachedTopics } from "./cache";
+
+export const runtime = 'edge';
 
 const MASTER_KEY: string = process.env.MASTER_KEY || "";
 

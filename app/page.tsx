@@ -1,4 +1,4 @@
-import { getAllTopics } from "@/app/api/api/api";
+import { getAllTopics } from "@/app/api/api";
 import { ICategory } from "@/types/topics";
 import NavDrawerContent from "@/app/components/NavDrawerContent";
 import Header from "@/app/components/Header";
