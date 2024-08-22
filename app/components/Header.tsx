@@ -10,7 +10,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ params, pathname = "" }) => {
   return (
-    <header className="sticky top-0 z-10 flex flex-col gap-4 bg-base-100 py-7">
+    <header className="sticky top-0 z-10 flex flex-col gap-4 bg-base-100">
       <div className="-mx-3 flex items-center justify-between gap-4 lg:ml-0">
         <label
           htmlFor="my-drawer-2"
@@ -28,7 +28,6 @@ const Header: React.FC<HeaderProps> = ({ params, pathname = "" }) => {
         <Breadcrumbs pathname={pathname} />
         <ThemeSwitch />
       </div>
-
       <h2
         className={`hidden text-2xl font-bold lg:block ${params === undefined ? "hidden" : ""}`}
       >

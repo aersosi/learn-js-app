@@ -67,7 +67,7 @@ const Topic: React.FC<ITopicProps> = React.memo(
     }, []);
 
     return (
-      <div key={topic.id} className="mb-8 flex justify-between gap-4">
+      <div key={topic.id} className="flex justify-between gap-4">
         <div className="flex flex-col gap-4">
           <span>{`${index + 1}. ${topic.question}`}</span>
           <span className="flex items-center gap-4 opacity-50">
@@ -95,9 +95,9 @@ const Topic: React.FC<ITopicProps> = React.memo(
               className="flex flex-col gap-4"
             >
               <h3 className="bold text-lg">Edit Answer</h3>
-
               <p>{topic.question}</p>
               <textarea
+                rows="8"
                 value={editState.tempEdit}
                 onChange={(e) =>
                   setEditState((prev) => ({
@@ -105,7 +105,7 @@ const Topic: React.FC<ITopicProps> = React.memo(
                     tempEdit: e.target.value,
                   }))
                 }
-                placeholder="Bio"
+                placeholder="Please write your answer"
                 className="modal-action textarea textarea-bordered textarea-md mb-4 mt-2 w-full"
               ></textarea>
               <div className="flex items-center justify-between gap-4">
@@ -149,7 +149,10 @@ const Topic: React.FC<ITopicProps> = React.memo(
                   >
                     Cancel
                   </button>
-                  <button type="submit" className="btn btn-sm">
+                  <button
+                    type="submit"
+                    className="btn btn-ghost btn-sm text-primary"
+                  >
                     Save
                   </button>
                 </span>

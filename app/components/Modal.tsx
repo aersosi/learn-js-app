@@ -5,6 +5,7 @@ interface IModalProps {
   setModalOpen: (open: boolean) => boolean | void;
   children: React.ReactNode;
 }
+
 const Modal: React.FC<IModalProps> = ({
   modalOpen,
   setModalOpen,
@@ -12,7 +13,7 @@ const Modal: React.FC<IModalProps> = ({
 }) => {
   return (
     <dialog className={`modal ${modalOpen ? "modal-open" : ""}`}>
-      <div className="modal-box">
+      <div className="clamp-20-80 modal-box">
         <form method="dialog">
           <button
             onClick={() => setModalOpen(false)}

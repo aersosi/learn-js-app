@@ -13,24 +13,32 @@ export default async function Home() {
   return (
     <>
       <div className="drawer lg:drawer-open">
-        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content min-h-screen max-w-[80rem] px-4 lg:px-12">
-          <Header params="Welcome" />
-
-          <main>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
-              autem consectetur deserunt expedita facere nobis odit possimus
-              praesentium reiciendis vero! Ab corporis deleniti, dolorum error
-              est fuga incidunt ipsa ipsum iure labore laborum modi nesciunt,
-              odit omnis optio perferendis porro praesentium quas quia quos
-              reprehenderit sint sunt totam vero voluptas.
-            </p>
-          </main>
+        <input
+          id="start-page-drawer"
+          type="checkbox"
+          className="drawer-toggle"
+        />
+        <div className="drawer-content min-h-screen p-4">
+          <div className="card h-full w-full bg-base-100">
+            <div className="card-body gap-8 py-4">
+              <Header params="Welcome" />
+              <main>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Aliquam autem consectetur deserunt expedita facere nobis odit
+                  possimus praesentium reiciendis vero! Ab corporis deleniti,
+                  dolorum error est fuga incidunt ipsa ipsum iure labore laborum
+                  modi nesciunt, odit omnis optio perferendis porro praesentium
+                  quas quia quos reprehenderit sint sunt totam vero voluptas.
+                </p>
+              </main>
+            </div>
+          </div>
         </div>
+
         <div className="drawer-side z-20">
           <label
-            htmlFor="my-drawer-2"
+            htmlFor="start-page-drawer"
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
