@@ -97,7 +97,7 @@ const Topic: React.FC<ITopicProps> = React.memo(
               <h3 className="bold text-lg">Edit Answer</h3>
               <p>{topic.question}</p>
               <textarea
-                rows="8"
+                rows={8}
                 value={editState.tempEdit}
                 onChange={(e) =>
                   setEditState((prev) => ({
