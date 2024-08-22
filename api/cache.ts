@@ -1,5 +1,7 @@
 import { ICategory, ITopic } from "@/types/topics";
 
+export const runtime = process.env.RUNTIME || "edge";
+
 let cachedTopics: ICategory | null = null;
 let lastFetchTime: number = 0;
 const CACHE_DURATION = 3600000; // 1 hour

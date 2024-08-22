@@ -6,6 +6,7 @@ import {
   setCachedTopics,
 } from "./cache";
 
+export const runtime = process.env.RUNTIME || "edge";
 export const getTopicsByCategory = async (
   category: string
 ): Promise<ISubcategory> => {
