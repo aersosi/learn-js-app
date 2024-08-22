@@ -20,16 +20,14 @@ export default async function CategoryPage({
   return (
     <>
       <div className="drawer lg:drawer-open">
-        <input
-          id="topics-page-drawer"
-          type="checkbox"
-          className="drawer-toggle"
-        />
-        <div className="drawer-content min-h-screen p-4">
-          <div className="card h-full w-full bg-base-100">
-            <div className="card-body gap-8 py-4">
-              <Header params={params.category} pathname={pathname} />
-              <main className="overflow-y-auto">
+        <input id="main-drawer" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content h-screen p-2 lg:p-4">
+          <div className="card h-full bg-base-100">
+            <div className="card-body h-full p-0">
+              <span className="px-6 py-4">
+                <Header params={params.category} pathname={pathname} />
+              </span>
+              <main className="mb-2 mr-2 overflow-y-auto p-6 pb-4 pr-4">
                 <TopicsList data={{ [params.category]: data }} />
               </main>
             </div>
@@ -38,7 +36,7 @@ export default async function CategoryPage({
 
         <div className="drawer-side z-20">
           <label
-            htmlFor="topics-page-drawer"
+            htmlFor="main-drawer"
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>

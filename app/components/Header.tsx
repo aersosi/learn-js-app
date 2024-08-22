@@ -10,10 +10,10 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ params, pathname = "" }) => {
   return (
-    <header className="sticky top-0 z-10 flex flex-col gap-4 bg-base-100">
-      <div className="-mx-3 flex items-center justify-between gap-4 lg:ml-0">
+    <header className="z-10 flex flex-col gap-4">
+      <div className="flex items-center justify-between gap-4 lg:ml-0">
         <label
-          htmlFor="my-drawer-2"
+          htmlFor="main-drawer"
           className="btn btn-circle btn-ghost mr-4 lg:hidden"
         >
           <FiMenu size={24} />

@@ -10,19 +10,6 @@ const headers = {
   "X-Master-Key": masterKey,
 };
 
-export const fetchVersion = async (): Promise<number> => {
-  const response = await fetch(`${baseUrl}/latest?meta=false&path=version`, {
-    method: "GET",
-    headers,
-  });
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-  const versionData = await response.json();
-  console.log(versionData);
-  return versionData;
-};
-
 export const fetchAllTopics = async (): Promise<ICategory> => {
   const cachedTopics = getCachedTopics();
   if (cachedTopics) return cachedTopics;
