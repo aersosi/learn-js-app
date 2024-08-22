@@ -1,13 +1,14 @@
 import { ICategory } from "@/types/topics";
 import { getCachedTopics, setCachedTopics } from "./cache";
 
-const masterKey = process.env.MASTER_KEY;
+const MASTER_KEY: string = process.env.MASTER_KEY || "";
+
 const binId = "66c5a4f5ad19ca34f898ed01";
 
 const baseUrl = `https://api.jsonbin.io/v3/b/${binId}`;
 const headers = {
   "Content-Type": "application/json",
-  "X-Master-Key": masterKey,
+  "X-Master-Key": MASTER_KEY,
 };
 
 export const fetchAllTopics = async (): Promise<ICategory> => {
