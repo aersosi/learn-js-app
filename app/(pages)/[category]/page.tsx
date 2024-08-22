@@ -4,7 +4,7 @@ import { ISubcategory, ICategory } from "@/types/topics";
 import NavDrawerContent from "@/app/components/NavDrawerContent";
 import Header from "@/app/components/Header";
 
-export const runtime = process.env.RUNTIME || "edge";
+export const runtime = (process.env.RUNTIME || "edge") as "edge" | "nodejs" | "experimental-edge";
 
 export default async function CategoryPage({
   params,
