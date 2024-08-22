@@ -1,10 +1,10 @@
 import { ISubcategory, ITopic } from "@/types/topics";
-import { fetchAllTopics, saveTopics } from "./topicService";
+import { fetchAllTopics, saveTopics } from "../topicService/topicService";
 import {
   updateCachedTopic,
   deleteCachedAnswer,
   setCachedTopics,
-} from "./cache";
+} from "../cache/cache";
 
 export const runtime = 'edge';
 export const getTopicsByCategory = async (
