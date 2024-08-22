@@ -18,6 +18,7 @@ const Topic: React.FC<ITopicProps> = ({
   const [modalOpenEdit, setModalOpenEdit] = useState<boolean>(false);
   const [modalOpenDelete, setModalOpenDelete] = useState<boolean>(false);
   const [topicToEdit, setTopicToEdit] = useState<string>(topic.answer);
+  const [currentAnswer, setCurrentAnswer] = useState<string>(topic.answer);
 
   const handleSubmitEditAnswer: FormEventHandler<HTMLFormElement> = async (
     e
@@ -34,6 +35,7 @@ const Topic: React.FC<ITopicProps> = ({
         subcategory
       );
       setModalOpenEdit(false);
+      setCurrentAnswer(topicToEdit);
       router.refresh();
     } catch (error) {
       console.error("Failed to edit answer:", error);
@@ -44,6 +46,7 @@ const Topic: React.FC<ITopicProps> = ({
     try {
       await deleteAnswer(topic.id, category, subcategory);
       setModalOpenDelete(false);
+      setCurrentAnswer("");
       setTopicToEdit("");
       router.refresh();
     } catch (error) {
@@ -54,11 +57,10 @@ const Topic: React.FC<ITopicProps> = ({
   return (
     <div key={topic.id} className="mb-8 flex justify-between gap-4">
       <div className="flex flex-col gap-4">
-        <span>{`${index + 1}. ${topic.question}`}</span>{" "}
-        {/* Display the question number */}
+        <span>{`${index + 1}. ${topic.question}`}</span>
         <span className="flex items-center gap-4 opacity-50">
           <FiCheck size={24} className="text-green-500" />
-          {topic.answer}
+          {currentAnswer}
         </span>
       </div>
       <div className="flex gap-4">

@@ -1,74 +1,47 @@
-import { ICategory, ISubcategory, ITopic } from "@/types/topics";
-import { masterKey } from "./master-key";
-
-const baseUrl = "https://api.jsonbin.io/v3/b/66c5a4f5ad19ca34f898ed01";
-const headers = {
-  "Content-Type": "application/json",
-  "X-Master-Key": masterKey,
-};
+import { ISubcategory, ITopic } from "@/types/topics";
+import { fetchAllTopics, saveTopics } from "./topicService";
+import {
+  updateCachedTopic,
+  deleteCachedAnswer,
+  setCachedTopics,
+} from "./cache";
 
 export const getTopicsByCategory = async (
   category: string
 ): Promise<ISubcategory> => {
-  const allTopics = await getAllTopics();
+  const allTopics = await fetchAllTopics();
   return allTopics[category] || {};
 };
 
-export const getAllTopics = async (): Promise<ICategory> => {
-  try {
-    const res = await fetch(baseUrl, {
-      method: "GET",
-      headers,
-      next: { revalidate: 3600 },
-    });
-    if (!res.ok) {
-      console.error(`Failed to fetch topics: ${res.status} ${res.statusText}`);
-    }
-    const data = await res.json();
-    if (!data.record?.curriculum) {
-      console.error("Invalid data structure received");
-    }
-    return data.record.curriculum as ICategory;
-  } catch (error) {
-    console.error("Error fetching topics:", error);
-    return {} as ICategory;
-  }
-};
+export const getAllTopics = fetchAllTopics;
 
 export const editAnswer = async (
   topic: ITopic,
   category: string,
   subcategory: string
 ): Promise<ITopic> => {
+  // Optimistic update
+  updateCachedTopic(category, subcategory, topic);
+
   try {
-    const currentData = await getAllTopics();
+    const currentData = await fetchAllTopics();
     if (!currentData[category]?.[subcategory]) {
-      console.error("Category or subcategory not found");
+      throw new Error("Category or subcategory not found");
     }
     const topicIndex = currentData[category][subcategory].findIndex(
       (t: ITopic) => t.id === topic.id
     );
-
     if (topicIndex === -1) {
-      console.error("Topic not found");
+      throw new Error("Topic not found");
     }
-
     currentData[category][subcategory][topicIndex] = topic;
-
-    const res = await fetch(baseUrl, {
-      method: "PUT",
-      headers,
-      body: JSON.stringify({ curriculum: currentData }),
-    });
-
-    if (!res.ok) {
-      console.error(`Failed to update topic: ${res.status} ${res.statusText}`);
-    }
-
-    await res.json();
+    await saveTopics(currentData);
     return topic;
   } catch (error) {
     console.error("Error editing answer:", error);
+    // Rollback optimistic update
+    const originalData = await fetchAllTopics();
+    setCachedTopics(originalData);
     throw error;
   }
 };
@@ -78,32 +51,27 @@ export const deleteAnswer = async (
   category: string,
   subcategory: string
 ): Promise<void> => {
+  // Optimistic update
+  deleteCachedAnswer(category, subcategory, id);
+
   try {
-    const currentData = await getAllTopics();
+    const currentData = await fetchAllTopics();
     if (!currentData[category]?.[subcategory]) {
-      console.error("Category or subcategory not found");
+      throw new Error("Category or subcategory not found");
     }
     const topicIndex = currentData[category][subcategory].findIndex(
       (t: ITopic) => t.id === id
     );
-
     if (topicIndex === -1) {
-      console.error("Topic not found");
+      throw new Error("Topic not found");
     }
-
     currentData[category][subcategory][topicIndex].answer = "";
-
-    const res = await fetch(baseUrl, {
-      method: "PUT",
-      headers,
-      body: JSON.stringify({ curriculum: currentData }),
-    });
-
-    if (!res.ok) {
-      console.error(`Failed to delete answer: ${res.status} ${res.statusText}`);
-    }
+    await saveTopics(currentData);
   } catch (error) {
     console.error("Error deleting answer:", error);
+    // Rollback optimistic update
+    const originalData = await fetchAllTopics();
+    setCachedTopics(originalData);
     throw error;
   }
 };
