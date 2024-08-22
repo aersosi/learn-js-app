@@ -1,7 +1,7 @@
 import { ICategory } from "@/types/topics";
 import { getCachedTopics, setCachedTopics } from "./cache";
 
-export const runtime = (process.env.RUNTIME || "edge") as "edge" | "nodejs" | "experimental-edge";
+export const runtime = 'edge';
 const MASTER_KEY: string = process.env.MASTER_KEY || "";
 
 const binId = "66c5a4f5ad19ca34f898ed01";

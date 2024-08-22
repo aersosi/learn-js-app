@@ -1,6 +1,6 @@
 import { ICategory, ITopic } from "@/types/topics";
 
-export const runtime = (process.env.RUNTIME || "edge") as "edge" | "nodejs" | "experimental-edge";
+export const runtime = 'edge';
 
 let cachedTopics: ICategory | null = null;
 let lastFetchTime: number = 0;
