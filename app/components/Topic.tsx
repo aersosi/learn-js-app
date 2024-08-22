@@ -4,7 +4,7 @@ import React, { FormEventHandler, useState, useCallback } from "react";
 import { ITopicProps } from "@/types/topics";
 import { FiEdit, FiTrash2, FiCheck, FiRotateCcw } from "react-icons/fi";
 import Modal from "@/app/components/Modal";
-import { deleteAnswer, editAnswer } from "@/api/api/api";
+import { deleteAnswer, editAnswer } from "@/app/api/api/api";
 import { useRouter } from "next/navigation";
 
 const Topic: React.FC<ITopicProps> = React.memo(
