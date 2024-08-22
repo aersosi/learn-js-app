@@ -1,31 +1,30 @@
-import { getAllTopics } from "@/api/api";
-import { ICategory } from "@/types/topics";
+import { getAllTopics, getTopicsByCategory } from "@/api/api";
+import TopicsList from "@/app/components/TopicsList";
+import { ISubcategory, ICategory } from "@/types/topics";
 import NavDrawerContent from "@/app/components/NavDrawerContent";
 import Header from "@/app/components/Header";
 
-export default async function Home() {
-  const data: ICategory = await getAllTopics();
-  const categories = Object.entries(data).map(([name, subcategories]) => ({
+export default async function CategoryPage({
+  params,
+}: {
+  params: { category: string };
+}) {
+  const allData: ICategory = await getAllTopics();
+  const categories = Object.entries(allData).map(([name, subcategories]) => ({
     name,
     subcategories: Object.keys(subcategories),
   }));
+  const data: ISubcategory = await getTopicsByCategory(params.category);
+  const pathname = `${params.category}`;
 
   return (
     <>
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content min-h-screen max-w-[80rem] px-4 lg:px-12">
-          <Header params="Welcome" />
-
+          <Header params={params.category} pathname={pathname} />
           <main>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
-              autem consectetur deserunt expedita facere nobis odit possimus
-              praesentium reiciendis vero! Ab corporis deleniti, dolorum error
-              est fuga incidunt ipsa ipsum iure labore laborum modi nesciunt,
-              odit omnis optio perferendis porro praesentium quas quia quos
-              reprehenderit sint sunt totam vero voluptas.
-            </p>
+            <TopicsList data={{ [params.category]: data }} />
           </main>
         </div>
         <div className="drawer-side z-20">
