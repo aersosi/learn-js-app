@@ -1,7 +1,7 @@
 import { ICategory } from "@/types/topics";
-import { masterKey } from "./master-key";
 import { getCachedTopics, setCachedTopics } from "./cache";
 
+const masterKey = process.env.MASTER_KEY;
 const binId = "66c5a4f5ad19ca34f898ed01";
 
 const baseUrl = `https://api.jsonbin.io/v3/b/${binId}`;
