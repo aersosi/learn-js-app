@@ -19,7 +19,7 @@ export const getAllTopics = async (): Promise<ICategory> => {
     const res = await fetch(baseUrl, {
       method: "GET",
       headers,
-      cache: "no-store",
+      next: { revalidate: 3600 },
     });
     if (!res.ok) {
       console.error(`Failed to fetch topics: ${res.status} ${res.statusText}`);
@@ -31,7 +31,7 @@ export const getAllTopics = async (): Promise<ICategory> => {
     return data.record.curriculum as ICategory;
   } catch (error) {
     console.error("Error fetching topics:", error);
-    return {} as ICategory; // Return an empty object that satisfies ICategory
+    return {} as ICategory;
   }
 };
 
